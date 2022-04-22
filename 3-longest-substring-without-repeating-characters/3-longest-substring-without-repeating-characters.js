@@ -9,7 +9,6 @@ var lengthOfLongestSubstring = function(s) {
     const arrOfSubStrings = [];
     for(var i = 0; i < s.length; i += 1){
         if(s[i] in hashTable){
-            console.log(longestSubStr, i , s[i]);
             const removeBeforeIndex = hashTable[s[i]];
             str = s.slice(removeBeforeIndex, i);
             for(property in hashTable){
