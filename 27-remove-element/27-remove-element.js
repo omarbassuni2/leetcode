@@ -11,6 +11,5 @@ var removeElement = function(nums, val) {
             k += 1;
         }
     }
-    console.log(k);
     return k;
 };
