@@ -18,19 +18,18 @@ var connect = function(root) {
     populateTable = function(root, level){
         if(!root)   return null;
         if(hashMap.get(level)){
-            let prevArr = hashMap.get(level);
-            let prevNode = prevArr[prevArr.length - 1];
+            let prevNode = hashMap.get(level);
             prevNode.next = root;
             root.next = null;
-            hashMap.set(level, [...prevArr, root]);
+            hashMap.set(level, root);
         }else{
             root.next = null;
-            hashMap.set(level, [root]);
+            hashMap.set(level, root);
         }
         populateTable(root.left, level + 1);
         populateTable(root.right, level + 1);
     }
     populateTable(root, 0);
-    newRoot = hashMap.get(0)[0];
+    let newRoot = hashMap.get(0);
     return newRoot;
 };
