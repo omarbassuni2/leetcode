@@ -21,6 +21,5 @@ var kthSmallest = function(root, k) {
         traverse(root.right, stackLen + 1);
     }
     traverse(root, 0);
-    console.log(stack);
     return stack[k - 1];
 };
