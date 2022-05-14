@@ -17,9 +17,9 @@ var kthSmallest = function(root, k) {
         if(!root)   return null;
         traverse(root.left);
         stack.push(root.val);
-        if(stack.length == k)   return null;
         traverse(root.right);
     }
     traverse(root);
+    stack.sort(function(a, b){ return a-b;});
     return stack[k - 1];
 };
