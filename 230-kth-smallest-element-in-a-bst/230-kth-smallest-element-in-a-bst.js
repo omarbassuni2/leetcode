@@ -13,12 +13,14 @@
  */
 var kthSmallest = function(root, k) {
     const stack = [];
-    traverse = function(root){
+    traverse = function(root, stackLen){
         if(!root)   return null;
-        traverse(root.left);
+        traverse(root.left, stackLen + 1);
         stack.push(root.val);
-        traverse(root.right);
+        if(stackLen == k + 1)   return;
+        traverse(root.right, stackLen + 1);
     }
-    traverse(root);
+    traverse(root, 0);
+    console.log(stack);
     return stack[k - 1];
 };
