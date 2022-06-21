@@ -18,6 +18,5 @@ var reverseWords = function(s) {
         output.push(word.join(''));
     });
     output = output.join(" ");
-    console.log(output);
     return output;
 };
