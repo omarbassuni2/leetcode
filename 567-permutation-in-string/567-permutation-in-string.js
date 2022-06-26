@@ -13,11 +13,15 @@ var checkInclusion = function(s1, s2) {
     for(var i = 0; i < s2.length; i += 1){
         if(hashMap.get(s2[i])){
             let tempMap = new Map(hashMap);
+            let counter;
             for(var j = i; j < i + mapSize; j += 1){
                 if(tempMap.get(s2[j]) && tempMap.get(s2[j]) > 0){
                     let current = tempMap.get(s2[j]);
                     tempMap.set(s2[j], current - 1);
-                }else   break;
+                }else{
+                    counter = j - i;
+                    break;
+                }
             }
             let output = true;
             for(const [key, value] of tempMap){
