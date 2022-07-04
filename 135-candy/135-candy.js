@@ -12,7 +12,7 @@ var candy = function(ratings) {
         if(ratings[i] > ratings[i + 1] && outputArr[i] <= outputArr[i + 1]){
             let counter = 0;
             let iter = 1;
-            while(ratings[i + iter] > ratings[i + iter + 1]){
+            while(ratings[i + iter] > ratings[i + iter + 1]){ // to handle this scenario i: 2 => ratings =                                                                               //[29,51,87,87,72,12]
                 counter += 1;
                 iter += 1;
             }
