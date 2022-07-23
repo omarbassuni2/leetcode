@@ -21,7 +21,7 @@ var findAnagrams = function(s, p) {
                 tempTable[window[j]] -= 1;
                 if(tempTable[window[j]] < 0)    isAnagram = false;
             }
-            if(isAnagram)   output.push(i - window.length + 1);
+            if(isAnagram)   output.push(i - window.length + 1); //we check at the end of the array but we want to insert                                                                    //the first position
             window = window.slice(1); //remove first char
         }
     }
