@@ -3,13 +3,11 @@
  * @return {number}
  */
 var lengthOfLIS = function(nums) {
-    const L = new Array(nums.length).fill(1)
-    for (let i = 1; i < nums.length; i++) {
-        for (let j = 0; j < i; j++) {
-            if (nums[j] < nums[i] && L[j] + 1 > L[i]) {
-                L[i] = L[j] + 1
-            }
+    const dp = new Array(nums.length).fill(1)
+    for(var i = nums.length - 2; i >= 0; i -= 1){
+        for(var j = i + 1; j < nums.length; j += 1){
+            if(nums[i] < nums[j])   dp[i] = Math.max(1, 1 + dp[j], dp[i]);
         }
     }
-    return Math.max(...L);
+    return Math.max(...dp);
 };
