@@ -4,9 +4,6 @@
  */
 var findMin = function(nums) {
     /*
-    [3,4,5,1,2], -- 5 --, left is sorted, min is 3, go check the right arr
-    [1,2]
-    
     [4,5,6,7,0,1,2], -- 7--, left is sorted, min is 4, check right
     [0, 1, 2], -- 1 --, left is sorted, min is 0, check right 
     [2], -- 2 --, reached base case, min is 0;
