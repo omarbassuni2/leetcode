@@ -9,7 +9,22 @@
  * @param {ListNode[]} lists
  * @return {ListNode}
  */
+
 var mergeKLists = function(lists) {
+    var findMin = function(lists){
+        let minVal = Infinity;
+        let minNode = null;
+        let iterator = -1;
+        lists.forEach((ele, i) => {
+           if(ele.val < minVal){
+               minVal = lists[i].val;
+               minNode = lists[i];
+               iterator = i;
+           } 
+        });
+        lists[iterator] = lists[iterator].next;
+        return minNode;
+    }
     let root = new ListNode(0, null);
     const output = root;
     let isListsContainVal = true;
@@ -22,11 +37,10 @@ var mergeKLists = function(lists) {
          }
         });
         if(lists.length == 0)   break;
-        lists = lists.sort((a,b) => { return a.val-b.val});
-        root.next = lists[0];
+        let minNode = findMin(lists);
+        root.next = minNode;
         root = root.next;
-        lists[0] = lists[0]?.next;
-        removedCounter = 0;
     }
+    
     return output.next;
 };
