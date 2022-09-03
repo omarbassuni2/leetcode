@@ -11,36 +11,19 @@
  */
 
 var mergeKLists = function(lists) {
-    var findMin = function(lists){
-        let minVal = Infinity;
-        let minNode = null;
-        let iterator = -1;
-        lists.forEach((ele, i) => {
-           if(ele.val < minVal){
-               minVal = lists[i].val;
-               minNode = lists[i];
-               iterator = i;
-           } 
-        });
-        lists[iterator] = lists[iterator].next;
-        return minNode;
+    const root = new ListNode();
+    let nodeIter = root;
+    let allAsArray = [];
+    for(var i = 0; i < lists.length; i += 1){
+        while(lists[i]){
+            allAsArray.push(lists[i].val);
+            lists[i] = lists[i].next;
+        }
     }
-    let root = new ListNode(0, null);
-    const output = root;
-    let isListsContainVal = true;
-    while(lists.length){
-        let removedCounter = 0;
-        lists.forEach((ele, i) =>{
-         if(ele == null){
-             lists = [...lists.slice(0, i - removedCounter), ...lists.slice(i + 1 - removedCounter)];
-                removedCounter += 1;
-         }
-        });
-        if(lists.length == 0)   break;
-        let minNode = findMin(lists);
-        root.next = minNode;
-        root = root.next;
-    }
-    
-    return output.next;
+    allAsArray = allAsArray.sort((a,b) => { return a-b;});
+    allAsArray.forEach((ele) => {
+        nodeIter.next = new ListNode(ele);
+        nodeIter = nodeIter.next;
+    });
+    return root.next;
 };
