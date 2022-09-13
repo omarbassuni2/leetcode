@@ -4,18 +4,8 @@
  * @return {number}
  */
 var myPow = function(x, n) {
-    if(n == 0 || (x == -1 && n % 2 == 0))  return 1;
-    if(n == 1 || x == 1 || x == -1)  return x;
-    let isNegative = false;
-    const multiplier = x;
-    if(n < 0){
-        n *= -1;
-        isNegative = true;
-    }
-    while(n > 1){
-        x *= multiplier;
-        n -= 1;
-    }
-    
-    return isNegative ? 1 / x : x;
+    if(n == 0)              return 1;
+    else if(n < 0)          return 1 / myPow(x, -n);
+    else if(n % 2 == 0)     return myPow(x * x, n / 2);
+    else                    return x * myPow(x, n - 1);
 };
