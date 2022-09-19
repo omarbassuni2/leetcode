@@ -14,16 +14,17 @@ var maxPathSum = function(root) {
     let output = -Infinity;
     var recursion = function(root){
         if(!root)   return 0;
-        const leftSubtree = root.left ? recursion(root.left) : root.val;
-        const rightSubtree = root.right ? recursion(root.right) : root.val;
-        const currAndLeftSubtree = root.left ? root.val + leftSubtree : root.val;
-        const currAndRightSubtree = root.right ? root.val + rightSubtree : root.val;
-        const currAndLeftAndRightSubtrees = root.left && root.right ? root.val + leftSubtree + rightSubtree : root.val;
-        const listOfVals = [root.val, currAndRightSubtree,
-                            currAndLeftSubtree,
-                            currAndLeftAndRightSubtrees];
-        output = Math.max(...listOfVals, output);
-        return Math.max(root.val, currAndLeftSubtree, currAndRightSubtree);
+        let maxLeftSum = recursion(root.left);
+        let maxRightSum = recursion(root.right);
+        maxLeftSum = Math.max(maxLeftSum, 0);
+        maxRightSum = Math.max(maxRightSum, 0);
+        
+        //here we update the output and it's different from updating a path, because a path can go right and left only for some node but not every node
+        
+        output = Math.max(output, root.val + maxLeftSum + maxRightSum);
+        
+        //here we return the max of the two paths added by our value
+        return root.val + Math.max(maxLeftSum, maxRightSum);
     }
     recursion(root);
     return output;
