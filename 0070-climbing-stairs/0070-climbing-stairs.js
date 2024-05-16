@@ -2,11 +2,12 @@
  * @param {number} n
  * @return {number}
  */
+const map = {
+    1: 1,
+    2: 2
+}
 var climbStairs = function(n) {
-    if(n == 1 || n == 2)    return n;
-    const output = [1, 2];
-    for(var i = 2; i < n; i += 1){
-        output.push(output[i-1] + output[i-2])
-    }
-    return output.pop();
+    if(map[n]) return map[n];
+    map[n] = climbStairs(n - 1) + climbStairs(n - 2);
+    return map[n];
 };
