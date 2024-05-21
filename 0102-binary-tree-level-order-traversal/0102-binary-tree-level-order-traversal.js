@@ -13,18 +13,16 @@
 
 var levelOrder = function(root) {
     if(!root)   return [];
-    const output = {};
-    var recursion = function(root, level) {
-        if(!root)   return;
-        if(output[level]) {
-            output[level].push(root.val);
+    const queue = [root], output = [];
+    while(queue.length) {
+        const tempOutput = [], len = queue.length;
+        for(let i = 0; i < len; i += 1) {
+            const curr = queue.shift();
+            tempOutput.push(curr.val);
+            curr.left && queue.push(curr.left);
+            curr.right && queue.push(curr.right);
         }
-        else {
-            output[level] = [root.val];
-        }
-        recursion(root.left, level + 1);
-        recursion(root.right, level + 1);
+        output.push(tempOutput);
     }
-    recursion(root, 0);
-    return Object.values(output);
+    return output;
 };
