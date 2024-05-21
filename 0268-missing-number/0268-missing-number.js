@@ -3,9 +3,9 @@
  * @return {number}
  */
 var missingNumber = function(nums) {
-    const set = new Set([...nums.map((_, index) => index), nums.length]);
-    nums.forEach((n) => {
-        if(set.has(n))  set.delete(n);
-    });
-    return set.values().next().value;
+    let output = nums.length;
+    nums.forEach((n, index) => {
+        output += index - n;
+    })
+    return output;
 };
