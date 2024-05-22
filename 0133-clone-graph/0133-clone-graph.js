@@ -11,19 +11,17 @@
  */
 var cloneGraph = function(node) {
     if(!node)   return null;
-    const queue = [node];
-    const hashMap = new Map();
-    hashMap.set(node.val, new Node(node.val));
-    while(queue.length){
-        const popNode = queue.shift();
-        const childern = popNode.neighbors;
-        for(var i = 0; i < childern.length; i += 1){
-            if(!hashMap.get(childern[i].val)){
-                hashMap.set(childern[i].val, new Node(childern[i].val));
-                queue.push(childern[i]);
+    const queue = [node], map = {};
+    map[node.val] = new Node(node.val);
+    while(queue.length) {
+        const tmp = queue.shift();
+        for(let i = 0; i < tmp.neighbors.length; i += 1) {
+            if(!map[tmp.neighbors[i].val]) {
+                map[tmp.neighbors[i].val] = new Node(tmp.neighbors[i].val);
+                queue.push(tmp.neighbors[i])
             }
-            hashMap.get(popNode.val).neighbors.push(hashMap.get(childern[i].val));
+            map[tmp.val].neighbors.push(map[tmp.neighbors[i].val]);
         }
     }
-    return hashMap.get(node.val);
+    return map[node.val]
 };
