@@ -3,10 +3,11 @@
  * @return {string[][]}
  */
 var groupAnagrams = function(strs) {
-    const strsMap = {};
+    const hashMap = {};
     strs.forEach((str) => {
-        const sortedStr = str.split("").sort().join("");
-        strsMap[sortedStr] ? strsMap[sortedStr].push(str) : strsMap[sortedStr] = [str];
-    });
-    return Object.values(strsMap);
+        const sorted = str.split("").sort().join("");
+        if(hashMap[sorted])     hashMap[sorted].push(str);
+        else                    hashMap[sorted] = [str];
+    })
+    return Object.values(hashMap)
 };
