@@ -4,8 +4,11 @@
  * @return {number[]}
  */
 var topKFrequent = function(nums, k) {
-    const numsMap = {};
-    nums.forEach((num) => { numsMap[num] ? numsMap[num] += 1 : numsMap[num] = 1 });
-    nums = Object.entries(numsMap);
-    return nums.sort((a,b) => { return  b[1] - a[1]; }).slice(0, k).map(ele => ele[0]);
+    const hashMap = {};
+    nums.forEach((n) => {
+        if(hashMap[n]) hashMap[n] += 1;
+        else           hashMap[n] = 1;
+    });
+    const mapConvertedToArr = Object.entries(hashMap).map(([k, v]) => [k, v]);
+    return mapConvertedToArr.sort((a,b) => b[1]-a[1]).slice(0, k).map((a) => a[0]);
 };
