@@ -4,21 +4,19 @@
  * @return {number[][]}
  */
 var combinationSum = function(candidates, target) {
-    const output = [], memo = {}, set = new Set();
-    function recursion(currArr, currTarget) {
-        if(currTarget === 0) {
-            const c = currArr.sort();
-            if(!set.has(c.toString())) {
-                set.add(c.toString());
-                return output.push(c);
-            }
+    const output = [];
+    function dfs(i, currArr, remainder) {
+        if(remainder === 0) {
+            output.push(currArr.slice());
+            return;
+        } else if(i >= candidates.length || remainder < 0) {
+            return;
         }
-        for(const num of candidates) {
-            if(currTarget - num >= 0) {
-                recursion([...currArr, num], currTarget - num);
-            }
-        }
+        currArr.push(candidates[i]);
+        dfs(i, currArr, remainder - candidates[i]);
+        currArr.pop();
+        dfs(i + 1, currArr, remainder);
     }
-    recursion([], target)
+    dfs(0, [], target);
     return output;
 };
