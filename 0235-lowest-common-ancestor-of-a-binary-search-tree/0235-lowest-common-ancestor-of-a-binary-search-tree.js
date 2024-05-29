@@ -12,16 +12,15 @@
  * @param {TreeNode} q
  * @return {TreeNode}
  */
-
 var lowestCommonAncestor = function(root, p, q) {
-       if(root.val < p.val && root.val < q.val) {
-        return lowestCommonAncestor(root.right, p, q);
+    if(root.val < p.val && root.val < q.val) {              // this is BST. If root is less than both then go right
+       return lowestCommonAncestor(root.right, p, q);       
     }
-    else if(root.val > p.val && root.val > q.val) {
+    if(root.val > p.val && root.val > q.val) {       // this is BST. if root is greater than both then go left
         return lowestCommonAncestor(root.left, p, q);
     }
     else {
-        return root;
+        return root;                                        // else it equals one of the values then return the root 
     }
-    
+
 };
