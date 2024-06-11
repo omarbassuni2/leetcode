@@ -31,6 +31,6 @@ var findCircleNum = function(isConnected) {
             }
         }
     }
-    
-    return new Set(parent.map(find)).size;
+    parent = parent.map(find)
+    return new Set(parent).size;
 };
