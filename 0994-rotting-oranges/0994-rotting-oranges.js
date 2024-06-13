@@ -14,7 +14,8 @@ var orangesRotting = function(grid) {
         }
     }
     while(queue.length && fresh > 0) {
-        const size = queue.length;
+        // When i used queue.length in the loop directly it changed the loop behavior, so we need to have a static length before the acutal loop
+        const size = queue.length; 
         for(let k = 0; k < size; k += 1) {
            const [i, j] = queue.shift();
             for(const [r, c] of [[i - 1, j], [i + 1, j], [i, j - 1], [i, j + 1]]) {
