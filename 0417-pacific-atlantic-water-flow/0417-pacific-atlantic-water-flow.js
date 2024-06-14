@@ -12,29 +12,35 @@
 ]
 */
 var pacificAtlantic = function(heights) {
+    /* 
+    The idea is to use dfs on each cell that touches an ocean,
+    use a different visited set for each ocean. And return their intersection
+    */
     const pac = new Set(), atl = new Set();
-    function dfs(i, j, visited, prevHeight) {
-        if(i < 0 || i >= heights.length || j < 0 || j >= heights[0].length || visited.has([i,j].toString()) ||
-          heights[i][j] < prevHeight) {
-            return;
-        }
-        visited.add([i, j].toString());
-        dfs(i + 1, j, visited, heights[i][j]);
-        dfs(i - 1, j, visited, heights[i][j]);
-        dfs(i, j + 1, visited, heights[i][j]);
-        dfs(i, j - 1, visited, heights[i][j]);
+    function dfs(i, j, prevHeight, visited) {
+        if(i < 0 || j < 0 || i >= heights.length || j >= heights[0].length
+           || visited.has([i,j].join(",")) || heights[i][j] < prevHeight)   return;
+        visited.add([i,j].join(","));
+        dfs(i - 1, j, heights[i][j], visited);
+        dfs(i + 1, j, heights[i][j], visited);
+        dfs(i, j - 1, heights[i][j], visited);
+        dfs(i, j + 1, heights[i][j], visited);
+    } 
+    // Iterate over rows, use first col and last col
+    for(let r = 0; r < heights.length; r  += 1) {
+        dfs(r, 0, heights[r][0], pac);
+        dfs(r, heights[0].length - 1, heights[r][heights[0].length - 1], atl);
     }
-    for(let c = 0; c < heights[0].length; c += 1) {
-        dfs(0, c, pac, heights[0][c]);  // first row
-        dfs(heights.length - 1, c, atl, heights[heights.length - 1][c]);  // last row
+    
+    // Iterate over cols, use first row and last row
+    for(let c = 0; c < heights[0].length; c  += 1) {
+        dfs(0, c, heights[0][c], pac);
+        dfs(heights.length - 1, c, heights[heights.length - 1][c], atl);
     }
-    for(let r = 0; r < heights.length; r += 1) {
-        dfs(r, 0, pac, heights[r][0]);  // first col
-        dfs(r, heights[0].length - 1, atl, heights[r][heights[0].length - 1]);  // last col
-    }
+    // Check intersection and return it as output
     const output = [];
-    atl.forEach((key) => {
-        if(pac.has(key))    output.push(key.split(","));
-    })
+    pac.forEach((key) => {
+        if(atl.has(key))    output.push(key.split(","))
+    });
     return output;
 };
