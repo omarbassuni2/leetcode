@@ -10,31 +10,24 @@
  * @return {void} Do not return anything, modify head in-place instead.
  */
 var reorderList = function(head) {
-    let slow = head, fast = head.next;
-    while(fast && fast.next) {
-        slow = slow.next;
-        fast = fast.next.next
+    // Reach the second middle node
+    let slow = head, fast = head;
+    while(fast && fast.next)  slow = slow.next, fast = fast.next.next;
+    // Reverse the second half of the list. PS: slow will null and prev will be the last node in the list
+    let prev = null;
+    while(slow) {
+        const temp = slow.next;
+        slow.next = prev;
+        prev = slow;
+        slow = temp;
     }
-    // 1 -> 2 -> 3 -> 4
-    // reverse second half
-    // 1 -> 2 -> null | null <- 3 <- 4
-    let secondHalf = slow.next, prev = null;
-    slow.next = null;
-    while(secondHalf) {
-        const tmp = secondHalf.next;
-        secondHalf.next = prev;
-        prev = secondHalf;
-        secondHalf = tmp;
-    }
-    // Merge
-    // 1 -> 2 -> null | null <- 3 <- 4
-    // 1 -> 4 .. 4 -> 2
-    // 2 -> 3 .. 3 -> null (null here came from tmp1)
-    let l = head, r = prev;
-    while(r) {
-        const tmp1 = l.next, tmp2 = r.next;
-        l.next = r;
-        r.next = tmp1;
-        l = tmp1, r = tmp2;
+    
+    // Merge using two pointers. loop until the second half reachs its null point that we initialized. and reverse
+    let left = head, right = prev;
+    while(right.next) {
+        const leftLink = left.next, rightLink = right.next;
+        left.next = right;
+        right.next = leftLink;
+        left = leftLink, right = rightLink;
     }
 };
