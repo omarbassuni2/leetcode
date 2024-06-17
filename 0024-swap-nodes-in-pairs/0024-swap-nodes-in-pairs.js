@@ -15,8 +15,9 @@ var swapPairs = function(head) {
     
     The trick is using prevPair the right way. 
     
-    After swapping nodes, we make prevPair.next point to the first node
-    and prevPair point to the second node, so in the next iteration prevPair can point to the swapped node of the next pair
+    After swapping nodes, we make prevPair.next point to the new left
+    When we advance prevPair it should point to the new right, so in the next iteration 
+    prevPair can point to the swapped node of the next pair
     */
     if(!head)     return head;
     const dummy = new ListNode(0, head);
