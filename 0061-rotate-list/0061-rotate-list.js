@@ -10,13 +10,16 @@
  * @param {number} k
  * @return {ListNode}
  */
+// Another solution creating a cycle and looping until finding the right node to cut the linked list to two halves
+// And return the second half head: https://leetcode.com/problems/rotate-list/discuss/1838161/Algo-Explained-or-Easy-or-JS-or-97-fast-or-Commented
 var rotateRight = function(head, k) {
     let counter = 0, iter = head;
     while(iter) {
         counter += 1;
         iter = iter.next;
     }
-    k = counter > k ? k : k - Math.floor(k / counter) * counter; // counter = 5, k = 10, 12 
+    // allowing only rotation less than counter and using dummy to handle lists with 1 and two nodes 
+    k = counter > k ? k : k % counter; // counter = 5, k = 10, 12 
     if(k === 0)   return head;
     const dummy  = new ListNode(0, head);
     let left = dummy, right = dummy;
