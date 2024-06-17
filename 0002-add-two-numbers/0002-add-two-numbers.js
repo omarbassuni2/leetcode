@@ -25,11 +25,9 @@ var addTwoNumbers = function(l1, l2) {
         carry = Math.floor(sum / 10);
         curr.next = new ListNode(sum % 10, undefined);
         curr = curr.next;
-        l1 = l1?.next ? l1.next : null;
-        l2 = l2?.next ? l2.next : null;
-        if(!l1 && !l2 && !!carry)  {
-            curr.next = new ListNode(carry, undefined);
-        }
+        if(l1)  l1 = l1.next;
+        if(l2)  l2 = l2.next;
     }
+    if (carry > 0) curr.next = new ListNode(carry);
     return dummy.next;
 };
