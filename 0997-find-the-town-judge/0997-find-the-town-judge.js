@@ -6,6 +6,12 @@
   n = 3, trust = [[1,3],[2,3]]
   n = 3, trust = [[1,3],[2,3],[3,1]]
  */
+/* The idea is to have an array n + 1, with each index corresponds to each person. 
+    The array is n + 1 because town's people index starts with one not zero
+    If a person trusts someone, decrement it by one.
+    If a person is trusted by someone by someone increment by one.
+    then return the index of the element that has n - 1 people trusting him 
+*/
 var findJudge = function(n, trust) {
     if(n === 1) return 1;
     // To start from position 1 instead of 0
