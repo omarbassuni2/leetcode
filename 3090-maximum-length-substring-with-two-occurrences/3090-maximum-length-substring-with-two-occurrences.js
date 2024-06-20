@@ -9,8 +9,8 @@ var maximumLengthSubstring = function(s) {
     while loop starting from left until the char at map[right] is equal to 2 again
     */
     let left = 0, max = 0;
-    const counterMap = { [s[left]]: 1 };
-    for(let right = 1; right < s.length; right += 1) {
+    const counterMap = {};
+    for(let right = 0; right < s.length; right += 1) {
         if(!(s[right] in counterMap))  counterMap[s[right]] = 0;
         counterMap[s[right]] += 1;
         while(counterMap[s[right]] > 2) {
