@@ -3,6 +3,10 @@
  * @param {number} k
  * @return {number}
  */
+/*
+    The idea is to remember sliding window always shrinks from the left and having the maxFreq to check
+    if the constraint is met, but dont use maxFreq in the rest of the code
+*/
 var characterReplacement = function(s, k) {
     const hashMap = {};
     let left = 0, output = 0, maxFreq = 0;
