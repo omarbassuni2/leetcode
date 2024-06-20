@@ -3,6 +3,11 @@
  * @return {number}
  */
 // "pwwkew"
+/* 
+    The idea is to have a left and right indexes and use the for loop to add to map's counter.
+    If map[right] > constraint, we use a while loop until the map[right] is less than constraint,
+    we move the left pointer and decrement until the condition is set straight 
+*/
 var lengthOfLongestSubstring = function(s) {
     if(s.length < 2)   return s.length;
     let max = 0, left = 0;
