@@ -1,4 +1,7 @@
 
+/* The idea is to have two stack, each is dedicated to something. A stack dedicated to pushing, and a stack dedicated to popping.   
+    When you want to push you can push instantly to the pushing array. If you get a pop operation, you reverse the pushing array by       popping all its elements and pushing it to the popping stack, then you pop. Peek is the same as pop exactly, you reverse the           pushing stack into the popping stack, and you return the value of the last element in popping stack. And empty is to check both       popping and pushin are empty
+*/
 var MyQueue = function() {
     this.pushing = [];
     this.popping = [];
