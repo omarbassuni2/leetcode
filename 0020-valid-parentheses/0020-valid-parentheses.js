@@ -4,17 +4,15 @@
  */
 var isValid = function(s) {
     if(s.length % 2 !== 0)  return false;
-    const map = {
-        '(': ')',
-        '[': ']',
-        '{': '}'
-    }
-    const stack = [];
+    // The idea is to search for the opening to start an operation and a closing to finish the operation
+    const stack = [], openingMap = {
+        '{': '}', '[': ']', '(': ')' 
+    };
     for(let i = 0; i < s.length; i += 1) {
-        if(map[s[i]]) {
+        if(s[i] in openingMap) {
             stack.push(s[i]);
-        } else if(!map[s[i]] && s[i] !== map[stack.pop()]) {
-            return false;
+        } else {
+            if(openingMap[stack.pop()] !== s[i])    return false;
         }
     }
     return !stack.length;
