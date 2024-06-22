@@ -2,28 +2,28 @@
  * @param {string} s
  * @return {string}
  */
-// "3[a]2[bc]"
+/*
+    There are 2 tricks here is: having numbers bigger than one digit and strings when popped get reversed
+*/ 
 var decodeString = function(s) {
     const stack = [];
-    for(let i = 0; i < s.length; i += 1) {
-        if(s[i] !== ']') stack.push(s[i]);
-        else {
-            let tempStr = '',  popped = stack.pop();
-            while(popped !== '[') {
-                tempStr = popped + tempStr;
-                popped = stack.pop();
+    for (let i = 0; i < s.length; i++) {
+        if (s[i] !== ']') {
+            stack.push(s[i]);
+        } else {
+            let tempStr = '';
+            while (stack[stack.length - 1] !== '[') {
+                tempStr = stack.pop() + tempStr;
             }
-            let regex = new RegExp(/^[0-9]/), nPopped = stack.pop(), n = '';
-            while(regex.test(nPopped)) {
-                n = nPopped + n;
-                nPopped = regex.test(stack[stack.length - 1]) ? stack.pop() : undefined;
+            stack.pop(); // Remove '['
+            
+            let num = '';
+            while (stack.length && !isNaN(stack[stack.length - 1])) {
+                num = stack.pop() + num;
             }
-            let str = '';
-            for(let j = 0; j < n; j += 1) {
-                str += tempStr;
-            }
-            stack.push(str);
+            stack.push(tempStr.repeat(Number(num)));
         }
     }
-    return stack.join("");
+    
+    return stack.join('');
 };
