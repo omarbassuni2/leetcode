@@ -2,8 +2,15 @@
  * @param {number[]} nums
  * @return {number[][]}
  */
+
+/*
+    The idea is to sort the input. loop over the array, if the nums[i] === nums[i - 1] then continue;
+    now use two pointers on the rest of the array. 
+    If sum bigger than 0, decrease right
+    If sum less   than 0, increase left
+    else          add the three numbers to the output. increase left by one. use a while loop to check if left equals prev left, to                     increase a new one 
+*/
 var threeSum = function(nums) {
-    // [-1, 1, 1, 1, 1]
     const output = [];
     nums = nums.sort((a,b) => a-b);
     for(let i = 0; i < nums.length; i += 1) {
