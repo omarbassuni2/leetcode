@@ -11,15 +11,13 @@ intervals = [[0,0],[0,5]]
 */
 var merge = function(intervals) {
     if(intervals.length === 1)  return intervals;
-    intervals = intervals.sort((a,b) => a[0]-b[0])
-    const output = [];
+    intervals = intervals.sort((a,b) => a[0]-b[0]);
     for(let i = 1; i < intervals.length; i += 1) {
-        if(intervals[i][0] <= intervals[i - 1][1]) {
-           intervals[i] = [Math.min(intervals[i - 1][0], intervals[i][0]), Math.max(intervals[i - 1][1], intervals[i][1])]
-        } else {
-            output.push(intervals[i - 1]);
+        const curr = intervals[i], prev = intervals[i - 1];
+        if(curr[0] <= prev[1]) {
+            intervals[i] = [Math.min(curr[0], prev[0]), Math.max(curr[1], prev[1])];
+            intervals[i - 1] = undefined; 
         }
     }
-    output.push(intervals[intervals.length - 1]);
-    return output;
+    return intervals.filter((i) => i);
 };
