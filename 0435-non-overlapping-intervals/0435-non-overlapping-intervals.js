@@ -11,9 +11,9 @@ sorted    = [[1,2],[1,3],[2,3],[3,4]]
 
 [[1,2],[2,3]]
 
-    The idea is to sort numbers and check if curr has a lower bound lower than previous upper bound, if so we should remove curr
-    or just increase the count and not updating prev. else we update prev = intervals[i]
-    If prev[0]
+    The idea is to sort numbers and check if curr has a lower bound lower than previous upper bound, if so we increase the count and       check between who has the lower upper bound between prev and curr and choose the one with lower upper bound.
+    else we update prev = intervals[i]
+
 */
 var eraseOverlapIntervals = function(intervals) {
     if(intervals.length === 1)  return 0;
