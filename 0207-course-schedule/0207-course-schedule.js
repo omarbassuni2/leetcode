@@ -6,28 +6,26 @@
  [[1,0],[0,1]] {0 :(1), 1: (0)}
  */
 var canFinish = function(numCourses, prerequisites) {
-    const cycle = new Set(), preMap = {};
-    // Create adjacency list
-    for(const [course, pre] of prerequisites) {
-        if(course in preMap)    preMap[course].push(pre);
-        else                    preMap[course] = [pre];
-    }
-    function dfs(crs) {
-        if(cycle.has(crs))    return false; // Means two courses are co-dependant 
-        if(!(crs in preMap))    return true;    // Means course has no prerequisite 
-        // Adding to the visited set to detect cycles along the current path
-        cycle.add(crs);
-        for(const pre of preMap[crs]) {
-            if(!(dfs(pre))) return false;
+    if(numCourses === 1)    return true;
+    const cycle = new Set(), processed = new Set(), map = {};
+    for(let i = 0; i < numCourses; i += 1)  map[i]  = [];
+    for(const [course, pre] of prerequisites)  map[course].push(pre);
+    
+    function dfs(course) {
+        if(cycle.has(course))   return false;       
+        if(processed.has(course)) return true;           
+        cycle.add(course);
+        for(const pre of map[course]) {
+            if(!dfs(pre))   return false;
         }
-         // removing from the visited set to consider new paths
-        cycle.delete(crs);
-        delete preMap[crs];     // To denote that this course has no cycles in its path and can be taught
-        return true
+        cycle.delete(course);
+        processed.add(course)     
+        return true;
     }
-    // Iterating over courses that have prerequisites and running DFS on them
-    for(const crs of Object.keys(preMap)) {
-        if(!(dfs(crs)))     return false;
+    
+    // Check 
+    for(let i = 0; i < numCourses; i += 1) {
+        if(!dfs(i))    return false;
     }
     return true;
 };
