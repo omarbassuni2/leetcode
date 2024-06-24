@@ -4,21 +4,22 @@
  * @return {number}
  */
 var search = function(nums, target) {
-    // nums = [5,1,3] target = 5
+    if(nums.length === 1)   nums[0] === target ?  0 : -1;
     let left = 0, right = nums.length - 1;
     while(left <= right) {
-        const mid = Math.floor((left + right) / 2);
+        const mid = Math.floor((right + left) / 2);
         if(nums[mid] === target) return mid;
+        // If left is less than right, then left is sorted
         if(nums[left] <= nums[mid]) {
             if(nums[left] <= target && target < nums[mid]) {
                 right = mid - 1;
-            } else {
+            }
+            else {
                 left = mid + 1;
             }
-        } 
-        if(nums[mid] < nums[right]) {
-            if(nums[mid] < target && target <= nums[right]) {
-                left = mid + 1;
+        }   else {
+            if(nums[right] >= target && target > nums[mid]) {
+               left = mid + 1;
             } else {
                 right = mid - 1;
             }
