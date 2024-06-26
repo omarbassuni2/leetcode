@@ -11,12 +11,17 @@
  * @param {TreeNode} subRoot
  * @return {boolean}
  */
-function recursion(r, sR) {
-    if(!r || !sR) return !r && !sR;  // Returns true if both are null, returns false if only one is null
-    if(r.val !== sR.val)    return false;
-    return recursion(r.left, sR.left) && recursion(r.right, sR.right); 
-}
+/*
+    The idea is navigate through the root childern nodes and use dfs on them with subRoot to check for equality. 
+    so, create a dfs to check for equality, then return dfs of current root, subRoot 
+    ORed with isSubtree(root.left, subRoot) ORed with isSubtree(root.right, subRoot)
+*/
 var isSubtree = function(root, subRoot) {
     if(!root)   return !subRoot;
-    return recursion(root, subRoot) || isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
+    function dfs(p, q) {
+        if(!p || !q)    return !p && !q;
+        if(p.val !== q.val)     return false;
+        return dfs(p.left, q.left) && dfs(p.right, q.right);
+    }
+    return dfs(root, subRoot) || isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
 };
