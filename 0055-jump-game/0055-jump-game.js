@@ -3,17 +3,7 @@
  * @return {boolean}
  */
 /*
- 0,1,2,3,4,  5
-[2,3,1,1,4] true
 
- 0,1,2,3,4,  5
-[3,2,1,0,4] true
-
- 0,1,2,3,4,  5
-[3,2,1,0,0] true
-
-[1]
-[0]
 */
 var canJump = function(nums) {
     const dp = new Array(nums.length).fill(false);
