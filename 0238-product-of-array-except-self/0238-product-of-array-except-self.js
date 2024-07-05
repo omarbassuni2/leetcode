@@ -2,18 +2,23 @@
  * @param {number[]} nums
  * @return {number[]}
  */
+/*
+    [1,2,3,4]
+    [0 , 2 , 6,24]
+    [24, 12, 4,0 ]
+*/
 var productExceptSelf = function(nums) {
     const output = [];
-    const prefix = new Array(nums.length + 1).fill(1);
-    const postfix = new Array(nums.length + 1).fill(1);
-    for(var i = 0, j = 1;i < nums.length; i+= 1, j += 1){
-        prefix[j] = prefix[j - 1] * nums[i];
-    }
-    for(var i = nums.length - 1, j = postfix.length - 2; i >= 0; i-= 1, j -= 1){
-        postfix[j] = postfix[j + 1] * nums[i];
-    }
-    for(var i = 0; i < prefix.length - 1; i += 1){
-        output[i] = prefix[i] * postfix[i + 1];
+    let left = 1, right = 1;
+    nums.forEach((num, i) => {
+        output[i] = left;
+        left *= num;
+    });
+    const rightArr = []
+    for(let i = nums.length - 1; i >= 0; i -= 1) {
+        rightArr[i] = right;
+        right *= nums[i];
+        output[i] *= rightArr[i];
     }
     return output;
 };
