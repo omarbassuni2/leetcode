@@ -5,16 +5,15 @@
  */
 var combinationSum = function(candidates, target) {
     const output = [];
-    function dfs(i, currArr, remainder) {
-        if(remainder === 0) {
-            output.push(currArr.slice());
-            return;
-        } else if(i >= candidates.length || remainder < 0) {
+    function backtrack(path, index, sum) {
+        if(sum === target) {
+            output.push(path.slice());
             return;
         }
-        dfs(i, [...currArr, candidates[i]], remainder - candidates[i]);
-        dfs(i + 1, currArr, remainder);
+        for(let i = index; i < candidates.length; i += 1) {
+            if(sum + candidates[i] <= target) backtrack([...path, candidates[i]], i, sum + candidates[i]);
+        }
     }
-    dfs(0, [], target);
+    backtrack([], 0, 0)
     return output;
 };
