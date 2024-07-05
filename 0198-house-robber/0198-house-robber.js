@@ -2,6 +2,9 @@
  * @param {number[]} nums
  * @return {number}
  */
+/*
+    Consider two positions dp[i - 1] and dp[i - 2]. The goal is to have our result in dp[nums.length - 1], so we check which is bigger, dp[i - 1] or dp[i - 2] + nums[i]
+*/
 var rob = function(nums) {
     if(nums.length <= 2)    return Math.max(...nums);
     const dp = new Array(nums.length).fill(0);
