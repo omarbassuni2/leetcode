@@ -4,12 +4,25 @@
  * @return {number}
  */
 var coinChange = function(coins, amount) {
-    const dp = new Array(amount + 1).fill(Infinity);
-    dp[0] = 0;
-    for(let i = 1; i <= amount; i += 1) {
-        for(const c of coins) {
-           if(i - c >= 0)    dp[i] = Math.min(dp[i], 1 + dp[i - c]);
+    if (amount === 0) return 0;
+    const memo = {};
+
+    function recursion(remainder) {
+        if (remainder < 0) return -1;
+        if (remainder === 0) return 0;
+        if (remainder in memo) return memo[remainder];
+
+        let localMin = Infinity;
+        for (const coin of coins) {
+            const res = recursion(remainder - coin);
+            if (res !== -1) {
+                localMin = Math.min(localMin, res + 1);
+            }
         }
+
+        memo[remainder] = (localMin === Infinity) ? -1 : localMin;
+        return memo[remainder];
     }
-    return dp[amount] !== Infinity ? dp[amount] : -1;
+
+    return recursion(amount);
 };
