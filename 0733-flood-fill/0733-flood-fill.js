@@ -8,15 +8,13 @@
 var floodFill = function(image, sr, sc, color) {
     const visited = new Set();
     function dfs(i, j, prevColor) {
-        if(i < 0 || j < 0 || i >= image.length || j >= image[0].length ||
-           visited.has([i,j].join("")) || prevColor !== image[i][j])  return;
-        visited.add([i,j].join(""));
-        const temp = image[i][j];
+        if(i < 0 || j < 0 || i >= image.length || j >= image[0].length || visited.has([i,j].toString()) || image[i][j] !== prevColor)    return;
+        visited.add([i,j].toString());
         image[i][j] = color;
-        dfs(i - 1, j, temp);
-        dfs(i + 1, j, temp);
-        dfs(i, j - 1, temp);
-        dfs(i, j + 1, temp);
+        dfs(i + 1, j, prevColor);
+        dfs(i - 1, j, prevColor);
+        dfs(i, j + 1, prevColor);
+        dfs(i, j - 1, prevColor);
     }
     dfs(sr, sc, image[sr][sc]);
     return image;
