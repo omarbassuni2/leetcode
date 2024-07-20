@@ -5,13 +5,13 @@
  */
 var backspaceCompare = function(s, t) {
     const sStack = [], tStack = [];
-    for(const char of s.split("")) {
-        if(char === '#')    sStack.pop();
-        else                sStack.push(char);
-    }
-    for(const char of t.split("")) {
-        if(char === '#')    tStack.pop();
-        else                tStack.push(char);
-    }
+    s.split("").forEach((char) => {
+        if(char !== '#') sStack.push(char);
+        else               sStack.pop();
+    });
+    t.split("").forEach((char) => {
+        if(char !== '#') tStack.push(char);
+        else             tStack.pop();
+    });
     return sStack.toString() === tStack.toString();
 };
